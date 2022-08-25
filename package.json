@@ -45,7 +45,9 @@
     "typescript": "^4.7.4",
     "webpack": "^5.68.0",
     "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.7.4"
+    "webpack-dev-server": "^4.7.4",
+    "@types/axios": "^0.14.0",
+    "@types/lodash": "^4.14.184"
   },
   "consolePlugin": {
     "name": "console-plugin-template",
@@ -53,10 +55,15 @@
     "displayName": "OpenShift Console Plugin Template",
     "description": "Template project for OpenShift console plugins. Edit package.json to change this message and the plugin name.",
     "exposedModules": {
-      "ExamplePage": "./components/ExamplePage"
+      "MetaConsolePage": "./components/MetaConsolePage"
     },
     "dependencies": {
       "@console/pluginAPI": "*"
     }
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^4.2.1",
+    "axios": "^0.27.2",
+    "lodash": "^4.17.21"
   }
 }
