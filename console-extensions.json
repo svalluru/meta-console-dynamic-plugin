@@ -3,16 +3,18 @@
     "type": "console.page/route",
     "properties": {
       "exact": true,
-      "path": "/example",
-      "component": { "$codeRef": "ExamplePage" }
+      "path": "/metaConsole",
+      "component": {
+        "$codeRef": "MetaConsolePage"
+      }
     }
   },
   {
     "type": "console.navigation/href",
     "properties": {
-      "id": "example",
-      "name": "Plugin Example",
-      "href": "/example",
+      "id": "metaConsole",
+      "name": "Meta Console",
+      "href": "/metaConsole",
       "perspective": "admin",
       "section": "home"
     }

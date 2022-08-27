@@ -5,3 +5,7 @@
    * https://patternfly-react-main.surge.sh/developer-resources/global-css-variables */
   color: var(--pf-global--palette--blue-400);
 }
+
+/* .pf-c-page__sidebar-body {
+  height: 100%;
+} */
