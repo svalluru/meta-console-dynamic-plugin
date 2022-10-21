@@ -4,8 +4,8 @@ import {
   Button,
   Card,
   CardBody,
-  CardFooter,
-  CardTitle,
+  // CardFooter,
+  // CardTitle,
   Form,
   FormGroup,
   PageSidebar,
@@ -41,7 +41,7 @@ export function SidebarLayout() {
   };
   const sidebar = (
     <Card isFullHeight isPlain>
-      <CardTitle>Header</CardTitle>
+      {/* <CardTitle>Header</CardTitle> */}
       <CardBody>
         <Form>
           <FormGroup label="Cluster" fieldId="cluster-01">
@@ -72,7 +72,7 @@ export function SidebarLayout() {
           </ActionGroup>
         </Form>
       </CardBody>
-      <CardFooter>footer</CardFooter>
+      {/* <CardFooter>footer</CardFooter> */}
     </Card>
   );
 

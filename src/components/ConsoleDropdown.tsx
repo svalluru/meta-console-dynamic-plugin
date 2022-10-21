@@ -7,8 +7,8 @@ import {
 } from '../context/SidebarFormContextProvider';
 import { setConsoleValue } from '../reducer/SidebarFormReducer';
 import { useK8sWatchResource } from '@openshift-console/dynamic-plugin-sdk';
-import { getRouteWebUrl } from './ProjectDropdown';
-import { IRoute } from 'src/models/appModel';
+import { IRoute } from '../models/appModel';
+import { getRouteWebUrl } from '../utils/appUtils';
 
 interface IProps {
   id: string;
@@ -30,12 +30,10 @@ export const ConsoleDropdown = (props: IProps) => {
     allRoutes,
     (r) => r?.metadata?.namespace === selectedProject?.metadata?.name,
   );
-  console.log('allRoutes', allRoutes, projectRoutes, selectedConsole);
   const consoles = map(projectRoutes, (pr) => {
     pr.spec.url = getRouteWebUrl(pr);
     return pr;
   });
-  console.log('consoles', consoles);
   const consoleURLList = useMemo(() => {
     return map(consoles ?? [], (item) => {
       return {

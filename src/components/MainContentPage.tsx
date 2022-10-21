@@ -22,21 +22,10 @@ import CubesIcon from '@patternfly/react-icons/dist/esm/icons/cubes-icon';
 
 export function MainContentPage() {
   const {
-    sidebarFormState: {
-      selectedProject,
-      selectedConsole,
-      tabs: currentTabs,
-      activeTabKey,
-    },
+    sidebarFormState: { tabs: currentTabs, activeTabKey },
   } = useSidebarFormContext();
   const dispatch = useSidebarFormDispatchContext();
-  console.log(
-    'projectValue',
-    selectedProject,
-    selectedConsole,
-    currentTabs,
-    activeTabKey,
-  );
+
   const tabComponentRef = React.useRef<any>();
   const firstMount = React.useRef(true);
 

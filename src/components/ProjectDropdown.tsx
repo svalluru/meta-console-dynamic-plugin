@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { FormSelect, FormSelectOption } from '@patternfly/react-core';
-import { find, isEmpty, map } from 'lodash';
+import { find, map } from 'lodash';
 import {
   useSidebarFormContext,
   useSidebarFormDispatchContext,
@@ -10,25 +10,12 @@ import {
   useK8sWatchResource,
   K8sResourceCommon,
 } from '@openshift-console/dynamic-plugin-sdk';
-import { IRoute } from 'src/models/appModel';
 
 interface IProps {
   id: string;
   name: string;
   ariaLabel?: string;
 }
-
-export const getRouteWebUrl = (resource: IRoute) => {
-  if (isEmpty(resource)) {
-    return '';
-  }
-  const scheme = resource?.spec?.tls?.termination ? 'https' : 'http';
-  let url = `${scheme}://${resource.spec.host}`;
-  if (resource.spec.path) {
-    url += resource.spec.path;
-  }
-  return url;
-};
 
 export const ProjectDropdown = (props: IProps) => {
   const [namespace] = useK8sWatchResource<K8sResourceCommon[]>({
