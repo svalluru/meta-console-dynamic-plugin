@@ -6,6 +6,10 @@
   color: var(--pf-global--palette--blue-400);
 }
 
-/* .pf-c-page__sidebar-body {
+.pf-c-page__sidebar-body {
   height: 100%;
-} */
+}
+
+.pf-c-tab-content {
+  height: 100% !important;
+}

@@ -14,8 +14,8 @@
     "lint": "eslint ./src --fix && stylelint \"src/**/*.css\" --allow-empty-input --fix"
   },
   "devDependencies": {
-    "@openshift-console/dynamic-plugin-sdk": "0.0.12",
-    "@openshift-console/dynamic-plugin-sdk-webpack": "0.0.7",
+    "@openshift-console/dynamic-plugin-sdk": "0.0.17",
+    "@openshift-console/dynamic-plugin-sdk-webpack": "0.0.8",
     "@patternfly/react-core": "4.221.3",
     "@types/node": "^18.0.0",
     "@types/react": "^17.0.37",
@@ -64,6 +64,7 @@
   "dependencies": {
     "@tanstack/react-query": "^4.2.1",
     "axios": "^0.27.2",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "react-iframe": "^1.8.5"
   }
 }
