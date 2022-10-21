@@ -1,40 +1,53 @@
-import { IAction } from "../models/shared";
-
+import { IAction } from '../models/shared';
+import { K8sResourceCommon } from '@openshift-console/dynamic-plugin-sdk';
+import { IRoute } from '../models/appModel';
 export interface ISidebarFormState {
   clusterValue: string;
-  projectValue?: string;
-  consoleValue?: string;
+  selectedProject?: K8sResourceCommon;
+  selectedConsole?: IRoute;
+  tabs?: IRoute[];
+  activeTabKey?: number;
 }
 
 // Constants
 export enum SidebarFormReducerConstants {
-  setClusterValue = "setClusterValue",
-  setProjectValue = "setProjectValue",
-  setConsoleValue = "setConsoleValue",
+  setClusterValue = 'setClusterValue',
+  setProjectValue = 'setProjectValue',
+  setConsoleValue = 'setConsoleValue',
+  setTabsValue = 'setTabsValue',
+  setActiveKeyIndexValue = 'setActiveKeyIndexValue',
 }
 
 type IActionType = IAction<SidebarFormReducerConstants, ISidebarFormState>;
 export type SidebarFormReducerDispatchType = (value: IActionType) => void;
 export const initialSidebarState: ISidebarFormState = {
-  clusterValue: "",
-  projectValue: "",
-  consoleValue: "",
+  clusterValue: '',
+  selectedProject: {},
+  selectedConsole: {},
+  tabs: [],
+  activeTabKey: 0,
 };
 
 // Reducer
 export const SidebarFormStateReducer = (
   pState: ISidebarFormState,
-  action: IActionType
+  action: IActionType,
 ): ISidebarFormState => {
   switch (action.type) {
     case SidebarFormReducerConstants.setClusterValue: {
       return { ...pState, clusterValue: action.payload.clusterValue };
     }
     case SidebarFormReducerConstants.setProjectValue: {
-      return { ...pState, projectValue: action.payload.projectValue };
+      return { ...pState, selectedProject: action.payload.selectedProject };
     }
     case SidebarFormReducerConstants.setConsoleValue: {
-      return { ...pState, consoleValue: action.payload.consoleValue };
+      return { ...pState, selectedConsole: action.payload.selectedConsole };
+    }
+    case SidebarFormReducerConstants.setTabsValue: {
+      return { ...pState, tabs: action.payload.tabs };
+    }
+    case SidebarFormReducerConstants.setActiveKeyIndexValue: {
+      return { ...pState, activeTabKey: action.payload.activeTabKey };
     }
     default: {
       return pState;
@@ -46,7 +59,7 @@ export const SidebarFormStateReducer = (
 
 export const setClusterValue = (
   dispatch: SidebarFormReducerDispatchType,
-  clusterValue: string
+  clusterValue: string,
 ) => {
   dispatch({
     type: SidebarFormReducerConstants.setClusterValue,
@@ -56,20 +69,40 @@ export const setClusterValue = (
 
 export const setProjectValue = (
   dispatch: SidebarFormReducerDispatchType,
-  projectValue: string
+  selectedProject: K8sResourceCommon,
 ) => {
   dispatch({
     type: SidebarFormReducerConstants.setProjectValue,
-    payload: { projectValue },
+    payload: { selectedProject },
   });
 };
 
 export const setConsoleValue = (
   dispatch: SidebarFormReducerDispatchType,
-  consoleValue: string
+  selectedConsole: IRoute,
 ) => {
   dispatch({
     type: SidebarFormReducerConstants.setConsoleValue,
-    payload: { consoleValue },
+    payload: { selectedConsole },
+  });
+};
+
+export const setTabsValue = (
+  dispatch: SidebarFormReducerDispatchType,
+  tabs: IRoute[],
+) => {
+  dispatch({
+    type: SidebarFormReducerConstants.setTabsValue,
+    payload: { tabs },
+  });
+};
+
+export const setActiveKeyIndexValue = (
+  dispatch: SidebarFormReducerDispatchType,
+  activeTabKey: number,
+) => {
+  dispatch({
+    type: SidebarFormReducerConstants.setActiveKeyIndexValue,
+    payload: { activeTabKey },
   });
 };

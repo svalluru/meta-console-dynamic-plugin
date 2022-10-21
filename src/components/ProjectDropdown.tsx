@@ -1,12 +1,15 @@
 import React, { useMemo } from 'react';
 import { FormSelect, FormSelectOption } from '@patternfly/react-core';
-import { useGetProjectList } from '../hooks/SupportQueries';
-import { map } from 'lodash';
+import { find, map } from 'lodash';
 import {
   useSidebarFormContext,
   useSidebarFormDispatchContext,
 } from '../context/SidebarFormContextProvider';
 import { setProjectValue } from '../reducer/SidebarFormReducer';
+import {
+  useK8sWatchResource,
+  K8sResourceCommon,
+} from '@openshift-console/dynamic-plugin-sdk';
 
 interface IProps {
   id: string;
@@ -15,27 +18,33 @@ interface IProps {
 }
 
 export const ProjectDropdown = (props: IProps) => {
-  const { data } = useGetProjectList();
+  const [namespace] = useK8sWatchResource<K8sResourceCommon[]>({
+    kind: 'Namespace',
+    isList: true,
+  });
+
   const {
-    sidebarFormState: { projectValue },
+    sidebarFormState: { selectedProject },
   } = useSidebarFormContext();
   const dispatch = useSidebarFormDispatchContext();
+
   const projectNameList = useMemo(() => {
-    return map(data?.items ?? [], (item) => {
+    return map(namespace ?? [], (item) => {
       return {
         value: item?.metadata?.name,
         label: item?.metadata?.name,
       };
     });
-  }, [data?.items]);
+  }, [namespace]);
 
   const onChange = (value: string) => {
-    setProjectValue(dispatch, value);
+    const project = find(namespace, (n) => n.metadata.name === value);
+    setProjectValue(dispatch, project);
   };
 
   return (
     <FormSelect
-      value={projectValue}
+      value={selectedProject?.metadata?.name}
       onChange={onChange}
       aria-label={props.ariaLabel || 'FormSelect select'}
       id={props.id}

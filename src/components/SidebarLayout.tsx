@@ -4,20 +4,44 @@ import {
   Button,
   Card,
   CardBody,
-  CardFooter,
-  CardTitle,
+  // CardFooter,
+  // CardTitle,
   Form,
   FormGroup,
   PageSidebar,
-} from "@patternfly/react-core";
-import { ClusterDropdown } from "./ClusterDropdown";
-import { ConsoleDropdown } from "./ConsoleDropdown";
-import { ProjectDropdown } from "./ProjectDropdown";
+} from '@patternfly/react-core';
+import { ClusterDropdown } from './ClusterDropdown';
+import { ConsoleDropdown } from './ConsoleDropdown';
+import { ProjectDropdown } from './ProjectDropdown';
+import {
+  useSidebarFormContext,
+  useSidebarFormDispatchContext,
+} from '../context/SidebarFormContextProvider';
+import { find, isEmpty } from 'lodash';
+import {
+  setActiveKeyIndexValue,
+  setTabsValue,
+} from '../reducer/SidebarFormReducer';
 
 export function SidebarLayout() {
+  const {
+    sidebarFormState: { selectedConsole, tabs },
+  } = useSidebarFormContext();
+  const dispatch = useSidebarFormDispatchContext();
+
+  const onSubmit = () => {
+    const existingTab = find(
+      tabs,
+      (t) => t?.spec?.url === selectedConsole?.spec?.url,
+    );
+    if (isEmpty(existingTab)) {
+      setTabsValue(dispatch, [...tabs, selectedConsole]);
+      setActiveKeyIndexValue(dispatch, tabs?.length || 0);
+    }
+  };
   const sidebar = (
     <Card isFullHeight isPlain>
-      <CardTitle>Header</CardTitle>
+      {/* <CardTitle>Header</CardTitle> */}
       <CardBody>
         <Form>
           <FormGroup label="Cluster" fieldId="cluster-01">
@@ -42,11 +66,13 @@ export function SidebarLayout() {
             />
           </FormGroup>
           <ActionGroup>
-            <Button variant="primary">Submit</Button>
+            <Button onClick={onSubmit} variant="primary">
+              Submit
+            </Button>
           </ActionGroup>
         </Form>
       </CardBody>
-      <CardFooter>footer</CardFooter>
+      {/* <CardFooter>footer</CardFooter> */}
     </Card>
   );
 
